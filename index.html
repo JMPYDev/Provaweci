@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>We Cì | Pizza, Bakery e Aperitivo a Ostuni</title>
+<meta name="description" content="We Cì è Pizza, Bakery e Aperitivo a Ostuni, in Via Verona 39. Pizza tonda, teglia, focacce, pranzo veloce, colazione e aperitivo.">
+<meta name="theme-color" content="#F7F1E8">
+<style>
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root{
+  --cream:#F7F1E8;
+  --paper:#FFFDF8;
+  --ink:#22201D;
+  --ink-soft:#5A534B;
+  --line:#E6DccE;
+  --terra:#C85C36;
+  --terra-deep:#A6452A;   /* terracotta per testo e bottoni (contrasto AA) */
+  --olive:#66704B;
+  --olive-deep:#4E5738;
+  --butter:#E3B95A;
+  --butter-soft:#F4E3B8;
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua","URW Palladio L",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  --r-lg:26px;
+  --r-md:18px;
+  --r-sm:12px;
+  --shadow:0 1px 0 rgba(34,32,29,.04),0 10px 30px -18px rgba(90,50,20,.35);
+  --nav-h:64px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:var(--sans);
+  font-size:1rem;
+  line-height:1.55;
+  color:var(--ink);
+  background-color:var(--cream);
+  /* texture carta: grana leggerissima + puntinato di farina */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .32 0 0 0 0 .2 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(rgba(200,92,54,.07) 1px,transparent 1.4px);
+  background-size:160px 160px,22px 22px;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;line-height:1.1}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid var(--olive);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:12px;top:-60px;z-index:100;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px;text-decoration:none}
+.skip:focus{top:12px}
+
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:54px;padding:0 24px;border-radius:999px;
+  font:600 1rem/1 var(--sans);letter-spacing:.01em;text-decoration:none;
+  border:2px solid transparent;cursor:pointer;
+  transition:transform .18s var(--ease),background-color .2s,box-shadow .2s,color .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn--primary{background:var(--terra-deep);color:#fff;box-shadow:0 10px 24px -12px rgba(166,69,42,.8);animation:breathe 3.2s ease-in-out infinite}
+.btn--primary:hover{background:#933B23}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn--ghost:hover{background:var(--ink);color:var(--paper)}
+@keyframes breathe{
+  0%,100%{box-shadow:0 10px 24px -12px rgba(166,69,42,.8),0 0 0 0 rgba(200,92,54,.28)}
+  50%{box-shadow:0 10px 24px -12px rgba(166,69,42,.8),0 0 0 9px rgba(200,92,54,0)}
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{padding:28px 0 36px;position:relative;overflow:hidden}
+.hero__grid{display:grid;gap:22px;align-items:center}
+.hero__pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;
+  background:var(--paper);border:1px solid var(--line);
+  font-size:.875rem;font-weight:600;color:var(--ink-soft);
+}
+.hero__pill svg{width:16px;height:16px;color:var(--terra)}
+.logo{
+  font-family:var(--serif);
+  font-size:clamp(4.6rem,25vw,9.5rem);
+  font-weight:700;letter-spacing:-.045em;line-height:.82;
+  margin:22px 0 14px;color:var(--ink);
+}
+.logo .acc{color:var(--terra)}
+.hero__sub{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1.25rem,5.2vw,1.6rem);color:var(--olive-deep);
+}
+.hero__lead{margin-top:10px;font-size:1.0625rem;color:var(--ink-soft);max-width:30ch}
+.hero__art{position:relative;max-width:340px;width:78%;margin:0 auto}
+.hero__art .sun{transform-box:fill-box;transform-origin:center;animation:rise 1.6s var(--ease) .2s both}
+.hero__art .hill-1{animation:drift 1.6s var(--ease) .1s both}
+@keyframes rise{from{transform:translateY(46px);opacity:.3}to{transform:none;opacity:1}}
+@keyframes drift{from{transform:translateY(12px)}to{transform:none}}
+.hero__ctas{display:grid;gap:12px;margin-top:24px}
+.hero__info{margin-top:18px;font-size:.9rem;color:var(--ink-soft);display:flex;align-items:center;gap:10px}
+.hero__info::before{content:"";width:28px;height:2px;background:var(--butter);border-radius:2px}
+
+/* =========================================================
+   CATEGORY NAV (sticky)
+   ========================================================= */
+.catnav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(247,241,232,.9);
+  -webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);
+  border-bottom:1px solid transparent;
+  transition:box-shadow .3s,border-color .3s,background-color .3s;
+}
+.catnav.is-scrolled{border-color:var(--line);box-shadow:0 8px 24px -18px rgba(34,32,29,.45);background:rgba(255,253,248,.94)}
+.catnav__inner{display:flex;align-items:center;gap:10px;max-width:1080px;margin:0 auto;padding:0 0 0 20px;height:var(--nav-h)}
+.catnav__mark{
+  font:700 1.05rem/1 var(--serif);letter-spacing:-.01em;text-decoration:none;flex:none;
+  width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:width .3s var(--ease),opacity .3s;
+}
+.catnav.is-scrolled .catnav__mark{width:64px;opacity:1}
+.catnav__scroller{
+  display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;
+  padding:10px 20px 10px 2px;scrollbar-width:none;flex:1;
+  -webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);
+}
+.catnav__scroller::-webkit-scrollbar{display:none}
+.pill{
+  flex:none;scroll-snap-align:start;
+  display:inline-flex;align-items:center;min-height:44px;padding:0 16px;
+  border-radius:999px;border:1.5px solid var(--line);background:var(--paper);
+  font-size:.9375rem;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap;
+  transition:background-color .2s,color .2s,border-color .2s,transform .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.pill:active{transform:scale(.95)}
+.pill:hover{border-color:var(--ink)}
+.pill.is-active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+main{padding-bottom:24px}
+.menu-sec{padding:56px 0 8px;scroll-margin-top:calc(var(--nav-h) + 4px)}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:end;margin-bottom:26px}
+.sec-num{
+  grid-row:span 2;align-self:start;
+  width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
+  font:italic 600 1.05rem/1 var(--serif);color:var(--terra-deep);
+  border:1.5px solid var(--terra);background:var(--paper);margin-top:2px;
+}
+.sec-head h2{font-size:clamp(2rem,9vw,3rem);letter-spacing:-.025em}
+.sec-desc{font-family:var(--serif);font-style:italic;font-size:1.0625rem;color:var(--ink-soft);line-height:1.5;max-width:44ch}
+
+.group-title{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--olive-deep);
+  margin:30px 0 14px;
+}
+.group-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.group-title:first-child{margin-top:0}
+
+/* ---------- product cards ---------- */
+.items{display:grid;gap:12px}
+.item{
+  position:relative;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:18px 18px 16px;box-shadow:var(--shadow);
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;
+}
+.item__head{display:flex;align-items:flex-start;gap:14px}
+.item__name{font-size:1.28rem;letter-spacing:-.01em;line-height:1.2;flex:1;min-width:0}
+.item__price{
+  flex:none;font:700 1.15rem/1 var(--serif);color:var(--terra-deep);white-space:nowrap;
+  padding-top:.15em;
+}
+.item__desc{margin-top:6px;color:var(--ink-soft);font-size:.975rem;max-width:48ch}
+
+/* card in evidenza (Signature / Premium) */
+.item--feature{
+  border:1.5px solid var(--terra);
+  background:
+    radial-gradient(120px 120px at 100% 0,rgba(227,185,90,.28),transparent 70%),
+    var(--paper);
+}
+.item--feature .item__name{font-size:1.4rem}
+/* best seller: nastrino burro sul bordo sinistro */
+.item--best::before{
+  content:"";position:absolute;left:-1px;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:var(--butter);
+}
+/* versione premium scura */
+.item--dark{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.item--dark .item__desc{color:#D9D0C3}
+.item--dark .item__price{color:var(--butter)}
+
+/* tags */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:.78rem;font-weight:700;letter-spacing:.01em;
+  padding:4px 10px;border-radius:999px;line-height:1.35;
+  background:#EFE7DA;color:var(--ink);
+}
+.tag--veg{background:#E4E7D6;color:#3F4730}
+.tag--sig{background:#F6DDD1;color:#8C3A22}
+.tag--best{background:var(--butter-soft);color:#5E4610}
+.tag--prem{background:var(--ink);color:var(--butter)}
+.tag--light{background:#E6ECE1;color:#3E4A33}
+.tag--hot{background:#F9D9CF;color:#9A2E16}
+.tag--take{background:transparent;color:var(--ink-soft);box-shadow:inset 0 0 0 1.5px #CFC3B1}
+.item--dark .tag--prem{background:var(--butter);color:var(--ink)}
+.tag svg{width:12px;height:12px}
+
+/* nota di sezione */
+.note{
+  margin-top:20px;display:flex;align-items:center;gap:12px;
+  font-family:var(--serif);font-style:italic;font-size:1.08rem;color:var(--olive-deep);
+  padding:14px 18px;border-radius:var(--r-md);border:1.5px dashed #C7C0A3;
+}
+.note svg{width:22px;height:22px;flex:none;color:var(--terra)}
+
+/* ---------- menu fissi ---------- */
+.fixed-grid{display:grid;gap:14px}
+.fixed{
+  position:relative;overflow:hidden;
+  border-radius:var(--r-lg);padding:22px 20px 20px;
+  background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+  transition:transform .3s var(--ease),box-shadow .3s;
+}
+.fixed::before{content:"";position:absolute;inset:0 0 auto 0;height:6px;background:var(--band,var(--terra))}
+.fixed--colazione{--band:var(--butter)}
+.fixed--classico{--band:var(--terra)}
+.fixed--fit{--band:var(--olive)}
+.fixed--pizza{--band:var(--ink)}
+.fixed__when{
+  display:inline-block;font-size:.8rem;font-weight:700;color:var(--ink-soft);
+  background:#F1EADF;border-radius:999px;padding:5px 11px;
+}
+.fixed__row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-top:14px}
+.fixed h3{font-size:1.55rem;letter-spacing:-.015em}
+.fixed__price{text-align:right;flex:none;font:700 1.6rem/1 var(--serif);color:var(--terra-deep);white-space:nowrap}
+.fixed__price small{display:block;font:600 .75rem/1.2 var(--sans);color:var(--ink-soft);margin-bottom:3px}
+.fixed__desc{margin-top:8px;color:var(--ink-soft);font-size:.975rem}
+.upgrades{margin-top:14px;padding-top:12px;border-top:1px dashed #D8CDBC;display:grid;gap:6px}
+.upgrades li{display:grid;grid-template-columns:64px 1fr;gap:8px;font-size:.92rem;align-items:baseline}
+.up__p{font-weight:700;color:var(--olive-deep);font-variant-numeric:tabular-nums}
+
+/* ---------- box teglia ---------- */
+.box{
+  margin-top:14px;border-radius:var(--r-lg);padding:22px 20px;
+  background:var(--olive);color:#FBF7EE;position:relative;overflow:hidden;
+  display:grid;gap:14px;
+}
+.box::after{
+  content:"";position:absolute;right:-40px;bottom:-40px;width:150px;height:150px;border-radius:50%;
+  border:18px solid rgba(227,185,90,.35);
+}
+.box__tag{display:inline-block;justify-self:start;font-size:.8rem;font-weight:700;background:var(--butter);color:var(--ink);padding:5px 11px;border-radius:999px}
+.box h3{font-size:1.8rem}
+.box__rows{display:grid;gap:8px;position:relative;z-index:1}
+.box__rows li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 14px;border-radius:var(--r-sm);background:rgba(255,253,248,.12)}
+.box__rows strong{font:700 1.2rem/1 var(--serif);color:#fff;white-space:nowrap}
+
+/* ---------- aperitivo: card grandi ---------- */
+.items--stack .item{padding:22px 20px}
+.items--stack .item__name{font-size:1.45rem}
+
+/* ---------- bevande ---------- */
+.drinks{display:grid;gap:14px}
+.drink-group{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:18px 18px 10px;box-shadow:var(--shadow)}
+.drink-group h3{font-size:1.25rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.drink-group h3 svg{width:20px;height:20px;color:var(--terra)}
+.drink-list li{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid #EFE7DA}
+.drink-list li:last-child{border-bottom:0}
+.d-name{font-size:.975rem}
+.d-dots{flex:1;min-width:14px;border-bottom:1.5px dotted #CDBFAB;transform:translateY(-4px)}
+.d-price{font:700 1rem/1 var(--serif);color:var(--terra-deep);white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{margin-top:64px;background:var(--ink);color:var(--paper);border-radius:36px 36px 0 0;padding:48px 0 calc(32px + env(safe-area-inset-bottom))}
+.footer .logo{color:var(--paper);font-size:clamp(4rem,20vw,7rem);margin:0 0 10px}
+.footer .logo .acc{color:var(--butter)}
+.footer__sub{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:#E4D9C8}
+.footer__addr{margin-top:22px;font-size:1.05rem;line-height:1.5;font-style:normal;display:flex;gap:12px}
+.footer__addr svg{width:22px;height:22px;color:var(--butter);flex:none;margin-top:2px}
+.footer__ctas{display:grid;gap:12px;margin-top:26px}
+.footer .btn--primary{background:var(--terra);color:#fff;min-height:60px;font-size:1.05rem}
+.footer .btn--primary:hover{background:var(--terra-deep)}
+.footer .btn--ghost{color:var(--paper);border-color:rgba(255,253,248,.55)}
+.footer .btn--ghost:hover{background:var(--paper);color:var(--ink)}
+.footer__end{margin-top:34px;padding-top:20px;border-top:1px solid rgba(255,253,248,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-size:.9rem;color:#BFB4A4}
+.footer__end em{font-family:var(--serif);font-size:1.05rem;color:#E4D9C8}
+
+/* =========================================================
+   REVEAL ANIMATIONS
+   ========================================================= */
+.js .reveal .sec-head,
+.js .reveal .item,
+.js .reveal .fixed,
+.js .reveal .drink-group,
+.js .reveal .box,
+.js .reveal .note,
+.js .reveal .group-title{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:calc(min(var(--i,0),8) * 70ms);
+}
+.js .reveal.in .sec-head,
+.js .reveal.in .item,
+.js .reveal.in .fixed,
+.js .reveal.in .drink-group,
+.js .reveal.in .box,
+.js .reveal.in .note,
+.js .reveal.in .group-title{opacity:1;transform:none}
+
+/* hover solo con puntatore fine (desktop) */
+@media (hover:hover) and (pointer:fine){
+  .js .reveal.in .item:hover,
+  .js .reveal.in .fixed:hover{transform:translateY(-3px);box-shadow:0 1px 0 rgba(34,32,29,.04),0 18px 36px -20px rgba(90,50,20,.45);transition-delay:0s}
+  .item:hover{border-color:#D9C7AE}
+  .item--feature:hover{border-color:var(--terra-deep)}
+}
+
+/* =========================================================
+   RESPONSIVE (tablet / desktop)
+   ========================================================= */
+@media (min-width:600px){
+  .hero__ctas{grid-template-columns:auto auto;justify-content:start}
+  .footer__ctas{grid-template-columns:1fr 1fr}
+}
+@media (min-width:760px){
+  .wrap{padding:0 32px}
+  .catnav__inner{padding-left:32px}
+  .items{grid-template-columns:1fr 1fr;gap:16px}
+  .fixed-grid{grid-template-columns:1fr 1fr;gap:18px}
+  .drinks{display:block;columns:2;column-gap:18px}
+  .drink-group{break-inside:avoid;margin-bottom:18px}
+  .box{grid-template-columns:1fr 1.1fr;align-items:center;padding:28px}
+  .items--stack{grid-template-columns:1fr}
+  .items--stack .item{display:grid;grid-template-columns:1fr auto;column-gap:32px;align-items:center}
+  .items--stack .item__head{display:contents}
+  .items--stack .item__name{grid-column:1;grid-row:1}
+  .items--stack .item__price{grid-column:2;grid-row:1 / span 3;font-size:1.7rem;align-self:center;padding:14px 20px;border-radius:var(--r-md);background:#F6EDE0}
+  .items--stack .item--dark .item__price{background:rgba(255,253,248,.08)}
+  .items--stack .item__desc,.items--stack .tags{grid-column:1}
+}
+@media (min-width:960px){
+  .hero{padding:40px 0 64px}
+  .hero__grid{grid-template-columns:1.15fr .85fr;gap:40px}
+  .hero__art{width:100%;max-width:400px}
+  .menu-sec{padding-top:80px}
+  .sec-head{grid-template-columns:auto 1fr 1fr;align-items:end;gap:0 24px;padding-bottom:22px;border-bottom:1px solid var(--line);margin-bottom:32px}
+  .sec-num{grid-row:auto;align-self:end}
+  .sec-desc{justify-self:end;text-align:right;font-size:1.15rem}
+  .footer__inner{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:end}
+  .footer__ctas{grid-template-columns:1fr;margin-top:0}
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition-duration:.01ms !important;transition-delay:0s !important}
+  .js .reveal .sec-head,.js .reveal .item,.js .reveal .fixed,.js .reveal .drink-group,.js .reveal .box,.js .reveal .note,.js .reveal .group-title{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#menu">Vai al menu</a>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="wrap hero__grid">
+    <div>
+      <span class="hero__pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+        Ostuni · Via Verona 39
+      </span>
+      <h1 class="logo" aria-label="We Cì">WE C<span class="acc">Ì</span></h1>
+      <p class="hero__sub">Pizza • Bakery • Aperitivo</p>
+      <p class="hero__lead">Impasti, forno e sapori mediterranei.</p>
+
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="tel:+393333955212" aria-label="Chiama We Cì e prenota al numero +39 333 395 5212">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          Chiama e prenota
+        </a>
+        <a class="btn btn--ghost" href="#menu-fissi" aria-label="Scopri il menu, vai alle sezioni">
+          Scopri il menu
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+      </div>
+      <p class="hero__info">Servizio al tavolo · Asporto · Aperitivo</p>
+    </div>
+
+    <!-- Illustrazione: bocca del forno ad arco con sole mediterraneo e colline d'ulivo -->
+    <div class="hero__art">
+      <svg viewBox="0 0 320 290" role="img" aria-label="Illustrazione: la bocca di un forno ad arco con il sole che sorge sulle colline">
+        <defs>
+          <clipPath id="arch"><path d="M40 270V140a120 120 0 0 1 240 0v130z"/></clipPath>
+        </defs>
+        <path d="M40 270V140a120 120 0 0 1 240 0v130z" fill="#FFFDF8"/>
+        <g clip-path="url(#arch)">
+          <circle class="sun" cx="160" cy="198" r="62" fill="#E3B95A"/>
+          <g stroke="#E3B95A" stroke-width="3" stroke-linecap="round" opacity=".6">
+            <path d="M160 108v-14M104 132l-9-10M216 132l9-10M84 178H70M236 178h14"/>
+          </g>
+          <path class="hill-1" d="M20 214c52-26 96 12 150-6s96-28 130-10v100H20z" fill="#66704B"/>
+          <path d="M20 244c62-16 110 14 170-4s86-12 110-4v60H20z" fill="#4E5738"/>
+          <g fill="#FFFDF8" opacity=".85">
+            <ellipse cx="90" cy="236" rx="4" ry="2.2"/><ellipse cx="112" cy="232" rx="4" ry="2.2"/><ellipse cx="226" cy="224" rx="4" ry="2.2"/><ellipse cx="206" cy="230" rx="4" ry="2.2"/>
+          </g>
+        </g>
+        <path d="M40 270V140a120 120 0 0 1 240 0v130" fill="none" stroke="#C85C36" stroke-width="12" stroke-linecap="round"/>
+        <path d="M58 270V140a102 102 0 0 1 204 0v130" fill="none" stroke="#C85C36" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round" opacity=".7"/>
+        <path d="M14 272h292" stroke="#22201D" stroke-width="3" stroke-linecap="round"/>
+        <!-- spiga -->
+        <g transform="translate(292 150)" fill="none" stroke="#66704B" stroke-width="2.4" stroke-linecap="round">
+          <path d="M0 120V0"/>
+          <path d="M0 18c-8-4-10-12-10-18 7 2 10 8 10 18zM0 18c8-4 10-12 10-18-7 2-10 8-10 18zM0 38c-8-4-10-12-10-18 7 2 10 8 10 18zM0 38c8-4 10-12 10-18-7 2-10 8-10 18zM0 58c-8-4-10-12-10-18 7 2 10 8 10 18zM0 58c8-4 10-12 10-18-7 2-10 8-10 18z" fill="#E3B95A" stroke-width="1.4"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ================= NAV CATEGORIE ================= -->
+<nav class="catnav" id="catnav" aria-label="Categorie del menu">
+  <div class="catnav__inner">
+    <a class="catnav__mark" href="#top" aria-label="Torna all'inizio">WE CÌ</a>
+    <div class="catnav__scroller" id="navScroller"></div>
+  </div>
+</nav>
+
+<!-- ================= MENU ================= -->
+<main id="menu" class="wrap">
+  <noscript><p style="padding:40px 0">Attiva JavaScript per visualizzare il menu, oppure chiamaci al +39 333 395 5212.</p></noscript>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer" id="contatti">
+  <div class="wrap">
+    <div class="footer__inner">
+      <div>
+        <p class="logo" aria-label="We Cì">WE C<span class="acc">Ì</span></p>
+        <p class="footer__sub">Pizza • Bakery • Aperitivo</p>
+        <address class="footer__addr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <span>Via Verona 39<br>Ostuni, Puglia</span>
+        </address>
+      </div>
+      <div class="footer__ctas">
+        <a class="btn btn--primary" href="tel:+393333955212" aria-label="Chiama We Cì al numero +39 333 395 5212">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+          Chiama +39 333 395 5212
+        </a>
+        <a class="btn btn--ghost" href="#" id="takeaway" aria-label="Ordina da asporto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          Ordina da asporto
+        </a>
+      </div>
+    </div>
+    <div class="footer__end">
+      <em>Impasto, forno e sapori mediterranei.</em>
+      <span>© We Cì · Ostuni (BR)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   DATI DEL MENU — modifica qui prodotti, prezzi ed etichette
+   ========================================================= */
+const MENU = [
+  {
+    id: "menu-fissi", nav: "Menu fissi", title: "Menu fissi",
+    desc: "Quattro formule semplici, dalla colazione alla cena.",
+    type: "fixed",
+    items: [
+      { key: "colazione", name: "Menu Colazione Bakery", when: "Tutti i giorni · 07:30–11:30", price: "4,50 €", from: true,
+        desc: "Un prodotto dolce o salato bakery + espresso, cappuccino, americano oppure tè freddo.",
+        upgrades: [["+1,50 €", "cappuccino vegetale, specialty o spremuta"], ["+2,50 €", "yogurt proteico"]] },
+      { key: "classico", name: "Menu Classico", when: "Pranzo feriale · 12:00–15:00", price: "14,50 €",
+        desc: "Un primo a scelta + acqua 50 cl + caffè + coperto.",
+        upgrades: [["+3,50 €", "calice di vino"], ["+3,00 €", "focaccina"], ["+4,50 €", "dessert del giorno"]] },
+      { key: "fit", name: "Menu Fit", when: "Fresco · Completo · Saziante", price: "12,50 €", from: true,
+        desc: "Piatto unico equilibrato con proteine o legumi, verdure, cereale di qualità e salsa leggera.",
+        upgrades: [["+2,50 €", "proteina extra"], ["+2,00 €", "hummus o focaccina"], ["+3,50 €", "dessert o yogurt proteico"]] },
+      { key: "pizza", name: "Menu Pizza", when: "Pranzo e cena", price: "12,50 €", from: true,
+        desc: "Pizza tonda classica oppure focaccia farcita + acqua 50 cl o soft drink.",
+        upgrades: [["+2,50 €", "birra artigianale piccola"], ["+3,50 €", "calice di vino"], ["+4,50 €", "dessert"]] }
+    ]
+  },
+  {
+    id: "colazione", nav: "Colazione", title: "Buongiorno, We Cì",
+    desc: "Forno acceso, caffè buono e cose fatte per iniziare bene.",
+    groups: [{ items: [
+      { name: "Cornetto sfogliato", desc: "Crema oppure albicocca", price: "2,00 €" },
+      { name: "Girella cannella e arancia", desc: "Soffice, speziata, profumata", price: "2,80 €", tags: "Signature" },
+      { name: "Focaccina colazione salata", desc: "Focaccia calda, uovo morbido, crema di formaggio, rucola", price: "3,50 €", tags: "Salato" },
+      { name: "Scone mediterraneo", desc: "Pomodorino, olive, origano e formaggio", price: "3,20 €", tags: "Salato" },
+      { name: "Muffin proteico", desc: "Banana, avena e yogurt", price: "3,50 €", tags: "Leggero" }
+    ]}]
+  },
+  {
+    id: "pizza", nav: "Pizza", title: "Pizza tonda",
+    desc: "Impasto leggero, ingredienti essenziali, forno acceso.",
+    groups: [
+      { label: "Classiche", items: [
+        { name: "Margherita 2.0", desc: "Pomodoro, fiordilatte, basilico, olio EVO", price: "7,50 €", tags: "Best seller" },
+        { name: "Marinara Pugliese", desc: "Pomodoro, aglio, origano, olive, capperi, olio EVO", price: "7,00 €", tags: "Veg" },
+        { name: "Diavola Mediterranea", desc: "Pomodoro, fiordilatte, salame piccante, cipolla rossa marinata", price: "9,50 €", tags: "Piccante" },
+        { name: "Prosciutto e Funghi", desc: "Pomodoro, fiordilatte, prosciutto cotto alta qualità, funghi", price: "9,50 €" }
+      ]},
+      { label: "Speciali", items: [
+        { name: "Puglia Bianca", desc: "Fiordilatte, patate al forno, cipolla rossa, salsiccia, rosmarino", price: "11,50 €", tags: "Signature" },
+        { name: "Crudo, Stracciatella e Rucola", desc: "Base bianca, fiordilatte, prosciutto crudo, stracciatella, rucola, limone", price: "12,50 €", tags: "Premium" },
+        { name: "Tonno, Cipolla e Capperi", desc: "Pomodoro, fiordilatte, tonno di qualità, cipolla rossa, capperi, olive", price: "11,50 €" }
+      ]},
+      { label: "Vegetariane", items: [
+        { name: "Ortolana Arrosto", desc: "Fiordilatte, melanzane, zucchine, peperoni, basilico, olio EVO", price: "10,50 €", tags: "Veg" },
+        { name: "Crema di Ceci e Verdure", desc: "Base bianca, hummus, verdure arrosto, rucola, semi tostati", price: "11,00 €", tags: "Veg" }
+      ]}
+    ],
+    note: "Chiedi la pizza stagionale del momento."
+  },
+  {
+    id: "teglia", nav: "Teglia", title: "Teglia & Focacce",
+    desc: "Per una pausa veloce, un asporto fatto bene o un aperitivo da condividere.",
+    groups: [{ items: [
+      { name: "Teglia Margherita", desc: "Pomodoro, fiordilatte, basilico", price: "4,00 €", tags: "Al trancio" },
+      { name: "Teglia Diavola", desc: "Pomodoro, fiordilatte, salame piccante, cipolla rossa", price: "4,50 €", tags: "Al trancio · Piccante" },
+      { name: "Teglia Ortolana", desc: "Fiordilatte, verdure arrosto, olio EVO", price: "4,50 €", tags: "Veg · Al trancio" },
+      { name: "Focaccia Puglia Bianca", desc: "Patate, cipolla rossa, rosmarino, olio EVO", price: "4,00 €", tags: "Veg" },
+      { name: "Focaccia Crudo & Stracciatella", desc: "Focaccia calda, crudo, stracciatella, rucola, limone", price: "8,50 €", tags: "Signature · Asporto" }
+    ]}],
+    box: { title: "Box Teglia", tag: "Perfetto da condividere",
+      rows: [["3 tranci misti", "da 10,50 €"], ["6 tranci misti", "da 20,00 €"]] }
+  },
+  {
+    id: "pranzo", nav: "Pranzo", title: "Pranzo classico",
+    desc: "Tre primi veloci, completi e fatti per tornare anche domani.",
+    groups: [{ items: [
+      { name: "Orecchiette crema di pomodoro arrosto", desc: "Stracciatella, basilico e olio EVO", price: "10,50 €", tags: "Veg" },
+      { name: "Mezze maniche pollo, zucchine e limone", desc: "Pollo arrostito, zucchine grigliate, crema leggera al limone, grana", price: "11,50 €" },
+      { name: "Cavatelli tonno, capperi, olive e pomodorino", desc: "Tonno di qualità, capperi, olive, pomodoro e prezzemolo", price: "11,50 €" }
+    ]}],
+    note: "Disponibili nel Menu Classico con acqua, caffè e coperto a 14,50 €."
+  },
+  {
+    id: "fit", nav: "Fit", title: "Fit, ma con gusto",
+    desc: "Piatti freschi, equilibrati e davvero sazianti.",
+    groups: [{ items: [
+      { name: "Chicken Grain Bowl", desc: "Pollo marinato, farro o riso integrale, zucchine e peperoni arrosto, rucola, pomodorini, salsa yogurt e limone", price: "13,50 €", tags: "Proteico" },
+      { name: "Mediterranea Veg Bowl", desc: "Ceci speziati, hummus, farro, verdure grigliate, rucola, olive, semi e focaccina", price: "12,50 €", tags: "Veg" },
+      { name: "Tonno & Orzo Bowl", desc: "Tonno di qualità, orzo, pomodorini, cetriolo, olive, capperi, insalata e vinaigrette al limone", price: "13,50 €", tags: "Fresco" }
+    ]}]
+  },
+  {
+    id: "dolci", nav: "Dolci", title: "Il finale giusto",
+    desc: "Per chiudere bene, oppure da portare via.",
+    groups: [{ items: [
+      { name: "Tiramisù in vasetto", desc: "Cremoso, classico, monoporzione", price: "5,50 €", tags: "Best seller" },
+      { name: "Cheesecake ricotta e limone", desc: "Ricotta, limone, crumble di tarallo dolce", price: "5,50 €", tags: "Signature" },
+      { name: "Cookie fondente e mandorla", desc: "Morbido al centro, croccante ai bordi", price: "2,80 €", tags: "Asporto" }
+    ]}]
+  },
+  {
+    id: "aperitivo", nav: "Aperitivo", title: "L’ora del forno",
+    desc: "Dalle 17:30, un modo più buono di fare aperitivo.",
+    stack: true,
+    groups: [{ items: [
+      { name: "Aperitivo Pizza & Bakery", desc: "Drink o calice + tagliere bakery con 2 tranci di teglia, focaccina, hummus, olive e verdure", price: "16,00 €", tags: "Per una persona" },
+      { name: "Aperitivo Pugliese Premium", desc: "Spritz o calice premium + tagliere con teglia, stracciatella, verdure, olive, taralli e dessert mignon", price: "20,00 €", tags: "Premium · A persona", dark: true },
+      { name: "Aperitivo Analcolico", desc: "Mocktail mediterraneo + tagliere bakery individuale", price: "13,00 €", tags: "Analcolico" }
+    ]}]
+  },
+  {
+    id: "bevande", nav: "Bevande", title: "Da bere",
+    desc: "Poche cose scelte bene.",
+    type: "drinks",
+    groups: [
+      { label: "Caffetteria", icon: "cup", items: [
+        ["Espresso", "1,30 €"], ["Decaffeinato o orzo", "1,50 €"], ["Cappuccino", "2,00 €"],
+        ["Cappuccino vegetale", "2,30 €"], ["Caffè shakerato o caffè leccese rivisitato", "3,50 €"] ]},
+      { label: "Analcolici", icon: "glass", items: [
+        ["Acqua 50 cl", "1,50 €"], ["Acqua 75 cl", "3,00 €"], ["Cola, cola zero, aranciata, limonata", "3,50 €"],
+        ["Tè freddo artigianale", "3,50 €"], ["Spremuta d’arancia", "4,00 €"], ["Mocktail agrumi, basilico e tonica", "6,00 €"] ]},
+      { label: "Birre", icon: "beer", items: [
+        ["Lager italiana piccola", "3,50 €"], ["Lager italiana media", "5,00 €"], ["Birra artigianale pugliese chiara 33 cl", "5,50 €"],
+        ["IPA o ambrata artigianale 33 cl", "6,50 €"], ["Birra analcolica", "4,50 €"] ]},
+      { label: "Vini al calice", icon: "wine", items: [
+        ["Bianco pugliese", "5,00 €"], ["Rosato pugliese", "5,00 €"], ["Rosso pugliese", "5,50 €"], ["Calice premium stagionale", "6,50 €"] ]},
+      { label: "Aperitivo", icon: "spritz", items: [
+        ["Spritz classico", "7,00 €"], ["Spritz pugliese", "8,00 €"], ["Americano", "8,00 €"], ["Gin tonic", "9,00 €"] ]}
+    ]
+  }
+];
+
+/* =========================================================
+   ICONE (SVG inline)
+   ========================================================= */
+const ICONS = {
+  cup: '<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 3v3M12 3v3"/>',
+  glass: '<path d="M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z"/><path d="M6.6 9h10.8"/>',
+  beer: '<path d="M5 8h10v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M15 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 0 2.5 2.5 0 0 1 2 4"/>',
+  wine: '<path d="M8 3h8l-.5 6a3.5 3.5 0 0 1-7 0z"/><path d="M12 13v8M8 21h8"/>',
+  spritz: '<path d="M7 4h10l-1.5 9a3.5 3.5 0 0 1-7 0z"/><path d="M12 16v5M9 21h6M15 4l3-2"/><circle cx="11" cy="9" r="1"/>',
+  leaf: '<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19 13 11"/>',
+  flame: '<path d="M12 22a6 6 0 0 0 6-6c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-3 4-3 8a6 6 0 0 0 6 6z"/>',
+  star: '<path d="m12 3 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.8z"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+};
+const svg = (name, extra = "") =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${ICONS[name] || ""}</svg>`;
+
+/* =========================================================
+   RENDERING
+   ========================================================= */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function tagKind(t) {
+  const k = t.toLowerCase();
+  if (k === "veg") return "veg";
+  if (k.includes("signature")) return "sig";
+  if (k.includes("best")) return "best";
+  if (k.includes("premium")) return "prem";
+  if (k.includes("piccante")) return "hot";
+  if (k.includes("asporto")) return "take";
+  if (["leggero", "proteico", "fresco", "analcolico"].includes(k)) return "light";
+  return "plain";
+}
+const tagIcon = { veg: "leaf", hot: "flame", sig: "star" };
+
+function tagsHTML(tags) {
+  if (!tags) return "";
+  const list = tags.split(" · ").map(t => t.trim()).filter(Boolean);
+  return `<ul class="tags" aria-label="Caratteristiche">${list.map(t => {
+    const kind = tagKind(t);
+    return `<li class="tag tag--${kind}">${tagIcon[kind] ? svg(tagIcon[kind]) : ""}${esc(t)}</li>`;
+  }).join("")}</ul>`;
+}
+
+function itemHTML(it, i, level) {
+  const kinds = (it.tags || "").split(" · ").map(tagKind);
+  const cls = ["item"];
+  if (it.dark) cls.push("item--dark");
+  else if (kinds.includes("sig") || kinds.includes("prem")) cls.push("item--feature");
+  if (kinds.includes("best")) cls.push("item--best");
+  return `<article class="${cls.join(" ")}" style="--i:${i}">
+    <div class="item__head">
+      <h${level} class="item__name">${esc(it.name)}</h${level}>
+      <p class="item__price"><span class="sr-only">Prezzo: </span>${esc(it.price)}</p>
+    </div>
+    <p class="item__desc">${esc(it.desc)}</p>
+    ${tagsHTML(it.tags)}
+  </article>`;
+}
+
+function fixedHTML(it, i) {
+  return `<article class="fixed fixed--${it.key}" style="--i:${i}">
+    <p class="fixed__when">${esc(it.when)}</p>
+    <div class="fixed__row">
+      <h3>${esc(it.name)}</h3>
+      <p class="fixed__price">${it.from ? "<small>da</small>" : '<span class="sr-only">Prezzo: </span>'}${esc(it.price)}</p>
+    </div>
+    <p class="fixed__desc">${esc(it.desc)}</p>
+    <ul class="upgrades" aria-label="Upgrade disponibili">
+      ${it.upgrades.map(u => `<li><span class="up__p">${esc(u[0])}</span><span>${esc(u[1])}</span></li>`).join("")}
+    </ul>
+  </article>`;
+}
+
+function drinksHTML(groups) {
+  return `<div class="drinks">${groups.map((g, i) => `
+    <div class="drink-group" style="--i:${i}">
+      <h3>${svg(g.icon)}${esc(g.label)}</h3>
+      <ul class="drink-list">
+        ${g.items.map(d => `<li><span class="d-name">${esc(d[0])}</span><span class="d-dots" aria-hidden="true"></span><span class="d-price">${esc(d[1])}</span></li>`).join("")}
+      </ul>
+    </div>`).join("")}</div>`;
+}
+
+function sectionHTML(s, n) {
+  const num = String(n + 1).padStart(2, "0");
+  let body = "";
+
+  if (s.type === "fixed") {
+    body = `<div class="fixed-grid">${s.items.map(fixedHTML).join("")}</div>`;
+  } else if (s.type === "drinks") {
+    body = drinksHTML(s.groups);
+  } else {
+    let i = 0;
+    body = s.groups.map(g => {
+      const lvl = g.label ? 4 : 3;
+      const head = g.label ? `<h3 class="group-title">${esc(g.label)}</h3>` : "";
+      return head + `<div class="items${s.stack ? " items--stack" : ""}">${g.items.map(it => itemHTML(it, i++, lvl)).join("")}</div>`;
+    }).join("");
+
+    if (s.box) {
+      body += `<div class="box" style="--i:2">
+        <div><span class="box__tag">${esc(s.box.tag)}</span><h3>${esc(s.box.title)}</h3></div>
+        <ul class="box__rows">${s.box.rows.map(r => `<li><span>${esc(r[0])}</span><strong>${esc(r[1])}</strong></li>`).join("")}</ul>
+      </div>`;
+    }
+  }
+  if (s.note) body += `<p class="note">${svg("sun")}${esc(s.note)}</p>`;
+
+  return `<section class="menu-sec reveal" id="${s.id}" aria-labelledby="${s.id}-t">
+    <header class="sec-head">
+      <span class="sec-num" aria-hidden="true">${num}</span>
+      <h2 id="${s.id}-t">${esc(s.title)}</h2>
+      <p class="sec-desc">${esc(s.desc)}</p>
+    </header>
+    ${body}
+  </section>`;
+}
+
+/* =========================================================
+   INIT
+   ========================================================= */
+(function init() {
+  document.documentElement.classList.add("js");
+
+  const main = document.getElementById("menu");
+  const scroller = document.getElementById("navScroller");
+  const nav = document.getElementById("catnav");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  main.insertAdjacentHTML("beforeend", MENU.map(sectionHTML).join(""));
+  scroller.innerHTML = MENU.map(s => `<a class="pill" href="#${s.id}" data-target="${s.id}">${esc(s.nav)}</a>`).join("");
+
+  const pills = [...scroller.querySelectorAll(".pill")];
+  const sections = [...main.querySelectorAll(".menu-sec")];
+
+  /* Reveal delle sezioni allo scroll */
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.05 });
+    sections.forEach(s => io.observe(s));
+  } else {
+    sections.forEach(s => s.classList.add("in"));
+  }
+
+  /* Categoria attiva nella nav */
+  function setActive(id) {
+    pills.forEach(p => {
+      const on = p.dataset.target === id;
+      p.classList.toggle("is-active", on);
+      if (on) {
+        p.setAttribute("aria-current", "true");
+        const left = p.offsetLeft - scroller.clientWidth / 2 + p.clientWidth / 2;
+        scroller.scrollTo({ left: Math.max(0, left), behavior: reduce ? "auto" : "smooth" });
+      } else {
+        p.removeAttribute("aria-current");
+      }
+    });
+  }
+  if ("IntersectionObserver" in window) {
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    sections.forEach(s => spy.observe(s));
+  }
+
+  /* Click sulle pill: scroll fluido e sezione visibile subito */
+  pills.forEach(p => p.addEventListener("click", ev => {
+    const target = document.getElementById(p.dataset.target);
+    if (!target) return;
+    ev.preventDefault();
+    target.classList.add("in");
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    history.replaceState(null, "", "#" + p.dataset.target);
+    setActive(p.dataset.target);
+  }));
+
+  /* Stato "scrolled" della nav sticky */
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      nav.classList.toggle("is-scrolled", nav.getBoundingClientRect().top <= 0 && window.scrollY > 40);
+      ticking = false;
+    });
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* CTA asporto */
+  document.getElementById("takeaway").addEventListener("click", ev => {
+    ev.preventDefault();
+    alert("L’asporto online sarà disponibile presto. Per ordinare, chiamaci al +39 333 395 5212.");
+  });
+})();
+</script>
+</body>
+</html>
